@@ -24,20 +24,20 @@ Este repositório faz parte de um conjunto de 5 repos:
 Requer configuração do `.npmrc` para apontar ao GitHub Packages:
  
 ```
-@petcard:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+@petcardorg:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
  
 Depois:
  
 ```bash
-npm install @petcard/shared
+npm install @petcardorg/shared
 ```
  
 ## Uso
  
 ```typescript
-import { CreatePetDto, Species, Sex } from '@petcard/shared';
+import { CreatePetDto, Species, Sex } from '@petcardorg/shared';
  
 const pet: CreatePetDto = {
   name: 'Luna',
