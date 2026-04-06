@@ -1,5 +1,5 @@
 {
-  "name": "@petcard/shared",
+  "name": "@petcardorg/shared",
   "version": "0.1.0",
   "description": "DTOs, enums e types compartilhados do ecossistema PetCard",
   "main": "dist/index.js",
