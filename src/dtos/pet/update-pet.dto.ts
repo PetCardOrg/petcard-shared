@@ -43,3 +43,5 @@ export class UpdatePetDto {
   @IsUUID()
   tutor_id?: string;
 }
+
+export type UpdatePetRequest = Omit<UpdatePetDto, 'tutor_id'>;
