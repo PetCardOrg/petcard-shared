@@ -39,3 +39,5 @@ export class CreatePetDto {
   @IsUUID()
   tutor_id!: string;
 }
+
+export type CreatePetRequest = Omit<CreatePetDto, 'tutor_id'>;
