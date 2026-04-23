@@ -5,7 +5,6 @@ import {
   IsOptional,
   IsString,
   IsUrl,
-  IsUUID,
 } from 'class-validator';
 import { Species } from '../../enums/species.enum';
 import { Sex } from '../../enums/sex.enum';
@@ -35,9 +34,4 @@ export class CreatePetDto {
   @IsOptional()
   @IsUrl()
   photo_url?: string;
-
-  @IsUUID()
-  tutor_id!: string;
 }
-
-export type CreatePetRequest = Omit<CreatePetDto, 'tutor_id'>;
