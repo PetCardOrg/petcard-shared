@@ -29,3 +29,6 @@ export * from './dtos/deworming/deworming-record-response.dto';
 export * from './dtos/medication/create-medication-record.dto';
 export * from './dtos/medication/update-medication-record.dto';
 export * from './dtos/medication/medication-record-response.dto';
+
+// Carteira Digital DTOs
+export * from './dtos/carteira-digital/carteira-digital-response.dto';
