@@ -32,3 +32,4 @@ export * from './dtos/medication/medication-record-response.dto';
 
 // Carteira Digital DTOs
 export * from './dtos/carteira-digital/carteira-digital-response.dto';
+export * from './dtos/carteira-digital/carteira-digital-public-response.dto';
