@@ -11,6 +11,7 @@ export class CarteiraDigitalResponseDto {
   weight?: number;
   photo_url?: string;
   qr_code_url?: string;
+  public_url?: string;
   tutor_id!: string;
   tutor_name!: string;
   vaccines_count!: number;
