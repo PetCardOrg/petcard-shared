@@ -5,8 +5,10 @@ import {
   IsLongitude,
   IsNumber,
   IsOptional,
+  IsString,
   Max,
   Min,
+  MinLength,
 } from 'class-validator';
 
 export class FindNearbyClinicsQueryDto {
@@ -23,6 +25,11 @@ export class FindNearbyClinicsQueryDto {
   @Min(0.1)
   @Max(50)
   radiusKm!: number;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(1)
+  specialty?: string;
 
   @IsOptional()
   @Type(() => Number)
