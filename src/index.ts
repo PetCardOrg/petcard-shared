@@ -37,3 +37,6 @@ export * from './dtos/carteira-digital/carteira-digital-public-response.dto';
 // Clinica DTOs
 export * from './dtos/clinica/clinica-response.dto';
 export * from './dtos/clinica/find-nearby-clinics.query.dto';
+export * from './dtos/clinica/places-clinic-response.dto';
+export * from './dtos/clinica/find-nearby-places.query.dto';
+export * from './dtos/clinica/geocode-response.dto';
