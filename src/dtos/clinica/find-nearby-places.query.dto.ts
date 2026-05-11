@@ -1,17 +1,16 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsInt,
   IsLatitude,
   IsLongitude,
   IsNumber,
   IsOptional,
-  IsString,
   Max,
   Min,
-  MinLength,
 } from 'class-validator';
 
-export class FindNearbyClinicsQueryDto {
+export class FindNearbyPlacesQueryDto {
   @Type(() => Number)
   @IsLatitude()
   lat!: number;
@@ -27,20 +26,14 @@ export class FindNearbyClinicsQueryDto {
   radiusKm!: number;
 
   @IsOptional()
-  @IsString()
-  @MinLength(1)
-  specialty?: string;
+  @Transform(({ value }) => value === 'true' || value === true)
+  @IsBoolean()
+  openNow?: boolean;
 
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @Max(50)
-  limit?: number = 20;
-
-  @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(0)
-  offset?: number = 0;
+  @Max(20)
+  maxResults?: number = 20;
 }
