@@ -4,6 +4,7 @@
 export * from './enums/role.enum';
 export * from './enums/species.enum';
 export * from './enums/sex.enum';
+export * from './enums/device-platform.enum';
 
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
@@ -38,3 +39,7 @@ export * from './dtos/carteira-digital/carteira-digital-public-response.dto';
 export * from './dtos/clinica/places-clinic-response.dto';
 export * from './dtos/clinica/find-nearby-places.query.dto';
 export * from './dtos/clinica/geocode-response.dto';
+
+// Notification DTOs (M4 - FCM device registration)
+export * from './dtos/notification/register-device.dto';
+export * from './dtos/notification/device-token-response.dto';
