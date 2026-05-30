@@ -43,3 +43,12 @@ export * from './dtos/clinica/geocode-response.dto';
 // Notification DTOs (M4 - FCM device registration)
 export * from './dtos/notification/register-device.dto';
 export * from './dtos/notification/device-token-response.dto';
+
+// Veterinario DTOs (M5 - Modulo Veterinario)
+export * from './dtos/veterinario/create-veterinario.dto';
+export * from './dtos/veterinario/update-veterinario.dto';
+export * from './dtos/veterinario/veterinario-response.dto';
+
+// Nota Clinica DTOs (M5 - Notas Clinicas / Escrita Reversa)
+export * from './dtos/nota-clinica/create-nota-clinica.dto';
+export * from './dtos/nota-clinica/nota-clinica-response.dto';
