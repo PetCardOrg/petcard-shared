@@ -61,6 +61,15 @@ npm run build
 # Gera a pasta dist/ com os arquivos compilados
 ```
 
+## Testes e cobertura
+
+Este pacote **não possui suíte de testes própria** — decisão consciente da milestone de QA (M6, PC-091). Ele contém apenas DTOs, enums, types e os decorators de validação (`class-validator`), sem lógica de runtime a exercitar:
+
+- A **corretude de tipos** é garantida pelo `tsc` (build) a cada CI e publicação.
+- A **validação em runtime** (os decorators dos DTOs) é exercitada de ponta a ponta pelas suítes dos consumidores — os testes de integração/E2E da `petcard-api` validam os mesmos DTOs através do `ValidationPipe`.
+
+Por isso não há relatório de cobertura nem badge aqui; a cobertura de QA do ecossistema vive em `petcard-api`, `petcard-web` e `petcard-mobile`.
+
 ## Publicação
 
 A publicação é automática via GitHub Actions. Todo push na branch `main` dispara o workflow que faz build e publica no GitHub Packages.
