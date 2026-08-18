@@ -27,5 +27,9 @@ export class UpdateMedicationRecordDto {
 
   @IsOptional()
   @IsString()
+  veterinarian_name?: string;
+
+  @IsOptional()
+  @IsString()
   notes?: string;
 }
