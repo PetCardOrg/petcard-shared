@@ -4,6 +4,8 @@ export class MedicationRecordResponseDto {
   medication_name!: string;
   dosage!: string;
   frequency!: string;
+  /** Veterinário do PetCard que fez o registro; ausente quando foi o tutor. */
+  veterinario_id?: string;
   start_date!: string;
   end_date?: string;
   notes?: string;
