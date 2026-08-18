@@ -53,6 +53,7 @@ export * from './dtos/veterinario/veterinario-response.dto';
 
 // Nota Clinica DTOs (M5 - Notas Clinicas / Escrita Reversa)
 export * from './dtos/nota-clinica/create-nota-clinica.dto';
+export * from './dtos/nota-clinica/update-nota-clinica.dto';
 export * from './dtos/nota-clinica/nota-clinica-response.dto';
 
 // Historico Clinico DTOs (api#117)
