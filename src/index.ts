@@ -5,6 +5,7 @@ export * from './enums/role.enum';
 export * from './enums/species.enum';
 export * from './enums/sex.enum';
 export * from './enums/device-platform.enum';
+export * from './enums/acao-clinica.enum';
 
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
@@ -53,3 +54,7 @@ export * from './dtos/veterinario/veterinario-response.dto';
 // Nota Clinica DTOs (M5 - Notas Clinicas / Escrita Reversa)
 export * from './dtos/nota-clinica/create-nota-clinica.dto';
 export * from './dtos/nota-clinica/nota-clinica-response.dto';
+
+// Historico Clinico DTOs (api#117)
+export * from './dtos/historico-clinico/acao-clinica-response.dto';
+export * from './dtos/historico-clinico/historico-clinico-response.dto';
