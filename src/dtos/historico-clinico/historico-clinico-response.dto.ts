@@ -15,9 +15,17 @@ export class HistoricoClinicoItemResponseDto {
   titulo!: string;
   /** Prescrição, dosagem ou observação, conforme a entidade. */
   descricao?: string;
-  /** Data clínica do fato (aplicação, início do tratamento, consulta). */
-  ocorrido_em!: Date;
-  /** Quando entrou no sistema. */
+  /**
+   * Data clínica do fato (aplicação, início do tratamento, consulta).
+   *
+   * Vem como **dia de calendário** `YYYY-MM-DD` para vacina, vermífugo e
+   * medicação — como no resto da API. Instante (ISO completo) só na nota
+   * clínica, cujo fato clínico é o próprio momento do registro. Data de
+   * calendário serializada como instante é lida pelo cliente em fuso
+   * negativo como o dia anterior.
+   */
+  ocorrido_em!: string;
+  /** Quando entrou no sistema. Ordena a linha do tempo. */
   registrado_em!: Date;
   excluido!: boolean;
   excluido_em?: Date;
