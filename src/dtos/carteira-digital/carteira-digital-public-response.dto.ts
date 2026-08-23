@@ -15,6 +15,14 @@ export class CarteiraDigitalPublicResponseDto {
   photo_url?: string;
   qr_code_url?: string;
   tutor_name!: string;
+  /**
+   * Telefone do tutor, quando cadastrado.
+   *
+   * Vai numa carteira pública de propósito: é o caso de uso do QR na coleira
+   * — quem acha o pet perdido precisa conseguir ligar para o dono. Só é
+   * exposto se o tutor tiver preenchido o campo; o cadastro não o exige.
+   */
+  tutor_phone?: string;
   vaccines!: VaccineRecordResponseDto[];
   dewormings!: DewormingRecordResponseDto[];
   medications!: MedicationRecordResponseDto[];
