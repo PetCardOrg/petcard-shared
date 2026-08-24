@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsOptional,
   IsString,
+  IsUrl,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -38,4 +39,10 @@ export class UpdateVeterinarioDto {
   @IsString()
   @MaxLength(20)
   telefone?: string;
+
+  /** URL da foto de perfil, devolvida pelo upload de imagem. */
+  @IsOptional()
+  @IsUrl()
+  @MaxLength(2048)
+  foto_url?: string;
 }
