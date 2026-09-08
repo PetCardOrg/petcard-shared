@@ -5,6 +5,7 @@ import {
   IsUrl,
   MaxLength,
 } from 'class-validator';
+import { NormalizeEmail } from '../../validators/normalize-email.validator';
 
 export class UpdateTutorDto {
   @IsOptional()
@@ -13,6 +14,7 @@ export class UpdateTutorDto {
   name?: string;
 
   @IsOptional()
+  @NormalizeEmail()
   @IsEmail()
   @MaxLength(254)
   email?: string;
