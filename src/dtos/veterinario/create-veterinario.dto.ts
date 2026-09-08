@@ -5,6 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { NormalizeEmail } from '../../validators/normalize-email.validator';
 import { IsStrongPassword } from '../../validators/strong-password.validator';
 
 export class CreateVeterinarioDto {
@@ -13,6 +14,7 @@ export class CreateVeterinarioDto {
   @MaxLength(120)
   nome!: string;
 
+  @NormalizeEmail()
   @IsEmail()
   @MaxLength(254)
   email!: string;

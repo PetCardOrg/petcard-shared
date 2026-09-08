@@ -63,5 +63,6 @@ export * from './dtos/historico-clinico/acao-clinica-response.dto';
 export * from './dtos/historico-clinico/historico-clinico-response.dto';
 
 // Validators (regras de negocio replicadas nos DTOs)
+export * from './validators/normalize-email.validator';
 export * from './validators/strong-password.validator';
 export * from './validators/clinical-date.validators';
