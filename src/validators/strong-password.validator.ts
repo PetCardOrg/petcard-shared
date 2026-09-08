@@ -12,7 +12,9 @@ import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
  * o shared é consumido também por web e mobile, que não têm Nest.
  */
 const PASSWORD_MIN_LENGTH = 8;
-const PASSWORD_MAX_LENGTH = 72;
+
+/** Teto do bcrypt: o que passa de 72 bytes é ignorado em silêncio. */
+export const PASSWORD_MAX_LENGTH = 72;
 
 function combine(...decorators: PropertyDecorator[]): PropertyDecorator {
   return (target: object, propertyKey: string | symbol) => {
