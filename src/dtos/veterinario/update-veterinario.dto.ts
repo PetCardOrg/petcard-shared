@@ -6,10 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-
-/** Mesmos limites do cadastro — trocar a senha não pode enfraquecê-la. */
-const PASSWORD_MIN_LENGTH = 8;
-const PASSWORD_MAX_LENGTH = 72;
+import { IsStrongPassword } from '../../validators/strong-password.validator';
 
 export class UpdateVeterinarioDto {
   @IsOptional()
@@ -23,10 +20,9 @@ export class UpdateVeterinarioDto {
   @MaxLength(254)
   email?: string;
 
+  /** Mesma regra do cadastro — trocar a senha não pode enfraquecê-la. */
   @IsOptional()
-  @IsString()
-  @MinLength(PASSWORD_MIN_LENGTH)
-  @MaxLength(PASSWORD_MAX_LENGTH)
+  @IsStrongPassword()
   password?: string;
 
   @IsOptional()

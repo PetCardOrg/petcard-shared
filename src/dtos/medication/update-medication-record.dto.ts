@@ -1,4 +1,14 @@
-import { IsDateString, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsDateString,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+} from 'class-validator';
+import {
+  HasDosageQuantity,
+  IsOnOrAfterDate,
+} from '../../validators/clinical-date.validators';
 
 export class UpdateMedicationRecordDto {
   @IsOptional()
@@ -7,14 +17,18 @@ export class UpdateMedicationRecordDto {
 
   @IsOptional()
   @IsString()
+  @MaxLength(120)
   medication_name?: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(60)
+  @HasDosageQuantity()
   dosage?: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(60)
   frequency?: string;
 
   @IsOptional()
@@ -23,13 +37,16 @@ export class UpdateMedicationRecordDto {
 
   @IsOptional()
   @IsDateString()
+  @IsOnOrAfterDate('start_date')
   end_date?: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(120)
   veterinarian_name?: string;
 
   @IsOptional()
   @IsString()
+  @MaxLength(2000)
   notes?: string;
 }
