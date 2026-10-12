@@ -1,4 +1,5 @@
 import { EntidadeClinica } from '../../enums/acao-clinica.enum';
+import { AnexoResponseDto } from '../anexo/anexo-response.dto';
 import { AcaoClinicaResponseDto } from './acao-clinica-response.dto';
 
 /**
@@ -33,6 +34,8 @@ export class HistoricoClinicoItemResponseDto {
   veterinario_nome?: string;
   veterinario_crmv?: string;
   acoes!: AcaoClinicaResponseDto[];
+  /** Comprovantes ativos do registro; vazio para nota clínica. */
+  anexos!: AnexoResponseDto[];
 }
 
 export class HistoricoClinicoResponseDto {

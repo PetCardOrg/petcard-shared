@@ -1,3 +1,5 @@
+import { AnexoResponseDto } from '../anexo/anexo-response.dto';
+
 export class DewormingRecordResponseDto {
   id!: string;
   pet_id!: string;
@@ -10,6 +12,11 @@ export class DewormingRecordResponseDto {
   /** CRMV de quem registrou, quando é um veterinário do PetCard. */
   veterinario_crmv?: string;
   notes?: string;
+  /**
+   * Comprovantes anexados, do mais antigo ao mais recente. Ausente na carteira
+   * pública (QR): comprovante é dado de saúde e exige login.
+   */
+  anexos?: AnexoResponseDto[];
   created_at!: Date;
   updated_at!: Date;
 }
