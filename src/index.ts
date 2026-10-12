@@ -32,6 +32,10 @@ export * from './dtos/medication/create-medication-record.dto';
 export * from './dtos/medication/update-medication-record.dto';
 export * from './dtos/medication/medication-record-response.dto';
 
+// Anexos (comprovantes de vacina, vermífugo e medicação)
+export * from './dtos/anexo/create-anexo.dto';
+export * from './dtos/anexo/anexo-response.dto';
+
 // Carteira Digital DTOs
 export * from './dtos/carteira-digital/carteira-digital-response.dto';
 export * from './dtos/carteira-digital/carteira-digital-public-response.dto';
