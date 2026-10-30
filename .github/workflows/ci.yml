@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # A checagem de versão compara com a branch base do PR.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -22,3 +25,6 @@ jobs:
       - run: npm run lint:check
       - run: npm run build
       - run: npm test
+      - name: Bump de versão quando src/ muda
+        if: github.event_name == 'pull_request'
+        run: bash scripts/check-version-bump.sh "origin/${{ github.base_ref }}"
