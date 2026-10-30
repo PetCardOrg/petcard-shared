@@ -41,5 +41,6 @@ export class CreatePetDto {
 
   @IsOptional()
   @IsUrl()
+  @MaxLength(2048)
   photo_url?: string;
 }

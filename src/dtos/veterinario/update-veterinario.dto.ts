@@ -32,14 +32,19 @@ export class UpdateVeterinarioDto {
   password?: string;
 
   /**
-   * Senha atual, exigida sempre que `password` vem no corpo.
+   * Senha atual, exigida sempre que `password` ou `email` vem no corpo.
    *
    * O token do veterinário vale 7 dias e a web o guarda em `localStorage`.
    * Sem esta prova, um token vazado bastava para trocar a senha — e a conta
    * que dá acesso a dado clínico passava definitivamente para quem o roubou.
+   * Trocar o e-mail tem o mesmo efeito: o "esqueci a senha" passa a ir para
+   * quem roubou o token.
    * Não tem regra de senha forte: é a senha que já existe, seja ela qual for.
    */
-  @ValidateIf((dto: UpdateVeterinarioDto) => dto.password !== undefined)
+  @ValidateIf(
+    (dto: UpdateVeterinarioDto) =>
+      dto.password !== undefined || dto.email !== undefined,
+  )
   @IsString()
   @MaxLength(PASSWORD_MAX_LENGTH)
   senha_atual?: string;
