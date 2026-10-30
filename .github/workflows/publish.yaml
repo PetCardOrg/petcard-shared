@@ -29,10 +29,22 @@ jobs:
         id: check
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          if npm view @petcardorg/shared@$PACKAGE_VERSION version 2>/dev/null; then
+          # Só E404 quer dizer "versão não publicada". Antes, erro de rede ou
+          # de token também virava "não publicada", e versão repetida pulava
+          # o publish com o workflow verde, sem aviso.
+          if OUTPUT=$(npm view "@petcardorg/shared@$PACKAGE_VERSION" version 2>&1); then
+            if [ "$OUTPUT" != "$PACKAGE_VERSION" ]; then
+              echo "::error::Resposta inesperada do npm view: $OUTPUT"
+              exit 1
+            fi
+            echo "::warning::A versão $PACKAGE_VERSION já está publicada; nada foi publicado. Se src/ mudou, falta o bump no package.json."
             echo "exists=true" >> $GITHUB_OUTPUT
-          else
+          elif echo "$OUTPUT" | grep -q E404; then
             echo "exists=false" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Não foi possível consultar o registry:"
+            echo "$OUTPUT"
+            exit 1
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

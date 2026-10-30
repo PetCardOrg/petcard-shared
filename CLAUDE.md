@@ -17,9 +17,9 @@ Pacote `@petcardorg/shared` (**`0.23.0`**, GitHub Packages) com os **DTOs e enum
 
 - **Todo DTO novo entra aqui**, não local nos consumidores. Adicionar ao barrel `src/index.ts`.
 - **Versionamento:** bump **minor** para feature (DTO novo), **patch** para fix de tipo. Publicar após bump.
-- **Publish:** `.github/workflows/publish.yaml` (GitHub Packages). Publish é **idempotente** — pula se a versão já existe (não republica).
-- **Lint/format no commit** (husky + lint-staged): `eslint --fix` + `prettier --write`.
-- **Sem testes por design** (pacote de tipos) — a cobertura vive nos consumidores.
+- **Publish:** `.github/workflows/publish.yaml` (GitHub Packages). Publish é **idempotente** — pula se a versão já existe (não republica), com aviso no workflow. Por isso o CI reprova PR que muda `src/` sem bump (`scripts/check-version-bump.sh`).
+- **Lint/format no commit** (husky + lint-staged): `eslint --fix` + `prettier --write`. O CI roda `npm run lint:check` (sem `--fix`), que reprova em vez de corrigir.
+- **Testes dos validadores** em `test/` com `node:test` (sem framework): `npm test` compila com `tsconfig.test.json` para `.test-dist/` e roda. Validador novo ou regra nova de DTO entra com teste. Os testes ficam fora de `src/`, então não vão para o `dist` publicado.
 - Git flow, commits e regras cross-repo: ver `../CLAUDE.md`. PR mira `develop`.
 
 ## M7 nesta repo
