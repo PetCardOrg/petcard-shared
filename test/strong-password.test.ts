@@ -40,12 +40,24 @@ describe('IsStrongPassword', () => {
   });
 
   it('reprova 73 caracteres', () => {
-    assert.deepEqual(errosDaSenha('A1!' + 'a'.repeat(70)), ['maxLength']);
+    assert.deepEqual(errosDaSenha('A1!' + 'a'.repeat(70)), ['maxBytes']);
   });
 
-  it.todo(
-    'reprova senha com até 72 caracteres mas mais de 72 bytes (SH-02, P5)',
-  );
+  it('reprova 60 caracteres acentuados (mais de 72 bytes)', () => {
+    // 'á' ocupa 2 bytes em UTF-8: 3 + 57 × 2 = 117 bytes.
+    assert.deepEqual(errosDaSenha('A1!' + 'á'.repeat(57)), ['maxBytes']);
+  });
+
+  it('aceita acentos enquanto couber em 72 bytes', () => {
+    // 3 + 34 × 2 + 1 = 72 bytes.
+    assert.deepEqual(errosDaSenha('A1!' + 'á'.repeat(34) + 'a'), []);
+  });
+
+  it('conta emoji como 4 bytes', () => {
+    // 3 + 17 × 4 = 71 bytes passa; com mais um emoji, 75 reprova.
+    assert.deepEqual(errosDaSenha('A1!' + '🐶'.repeat(17)), []);
+    assert.deepEqual(errosDaSenha('A1!' + '🐶'.repeat(18)), ['maxBytes']);
+  });
 
   it('é exigida no cadastro do veterinário', () => {
     const dto = plainToInstance(CreateVeterinarioDto, {
