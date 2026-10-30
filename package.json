@@ -10,6 +10,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "lint:check": "eslint \"{src,test}/**/*.ts\"",
     "test": "tsc -p tsconfig.test.json && node --require reflect-metadata --test .test-dist/test/*.test.js",
     "format": "prettier --write \"{src,test}/**/*.ts\"",
     "prepare": "husky"
