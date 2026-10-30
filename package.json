@@ -9,8 +9,9 @@
   ],
   "scripts": {
     "build": "node scripts/build.js",
-    "lint": "eslint \"src/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "test": "tsc -p tsconfig.test.json && node --require reflect-metadata --test .test-dist/test/*.test.js",
+    "format": "prettier --write \"{src,test}/**/*.ts\"",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@nestjs/swagger": "^11.4.5",
+    "@types/node": "^20.19.43",
     "eslint": "^10.9.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
@@ -35,6 +37,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.4.2",
+    "reflect-metadata": "^0.2.2",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.20.0"
   },
