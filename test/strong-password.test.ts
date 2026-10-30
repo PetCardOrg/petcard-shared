@@ -84,5 +84,19 @@ describe('UpdateVeterinarioDto.senha_atual', () => {
     assert.deepEqual(validateSync(dto), []);
   });
 
-  it.todo('é exigida quando vem email (SH-03, P5)');
+  it('é exigida quando vem email', () => {
+    const dto = plainToInstance(UpdateVeterinarioDto, {
+      email: 'nova@example.com',
+    });
+    const erro = validateSync(dto).find((e) => e.property === 'senha_atual');
+    assert.ok(erro, 'troca de e-mail sem senha_atual deveria reprovar');
+  });
+
+  it('aceita troca de e-mail com senha_atual', () => {
+    const dto = plainToInstance(UpdateVeterinarioDto, {
+      email: 'nova@example.com',
+      senha_atual: 'SenhaAntiga1!',
+    });
+    assert.deepEqual(validateSync(dto), []);
+  });
 });
