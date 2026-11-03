@@ -6,6 +6,7 @@ export * from './enums/species.enum';
 export * from './enums/sex.enum';
 export * from './enums/device-platform.enum';
 export * from './enums/acao-clinica.enum';
+export * from './enums/crmv-motivo-recusa.enum';
 
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
@@ -54,6 +55,7 @@ export * from './dtos/notification/device-token-response.dto';
 // Veterinario DTOs (M5 - Modulo Veterinario)
 export * from './dtos/veterinario/adicionar-pet-atendido.dto';
 export * from './dtos/veterinario/create-veterinario.dto';
+export * from './dtos/veterinario/crmv-status-response.dto';
 export * from './dtos/veterinario/delete-veterinario.dto';
 export * from './dtos/veterinario/pet-atendido-response.dto';
 export * from './dtos/veterinario/update-veterinario.dto';
