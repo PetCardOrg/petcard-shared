@@ -12,6 +12,12 @@ function errosDe(dto: object, property: string): string[] {
   return Object.keys(erro?.constraints ?? {});
 }
 
+/** Mensagens com que as regras reprovaram a propriedade. */
+function mensagensDe(dto: object, property: string): string[] {
+  const erro = validateSync(dto).find((e) => e.property === property);
+  return Object.values(erro?.constraints ?? {});
+}
+
 function vacina(campos: Record<string, unknown>): CreateVaccineRecordDto {
   return plainToInstance(CreateVaccineRecordDto, {
     pet_id: PET_ID,
@@ -70,6 +76,13 @@ describe('IsAfterDate', () => {
     );
   });
 
+  it('cita a propriedade comparada na mensagem', () => {
+    assert.deepEqual(
+      mensagensDe(vacina({ next_dose_at: '2025-12-31' }), 'next_dose_at'),
+      ['next_dose_at deve ser posterior a applied_at.'],
+    );
+  });
+
   it('não compara quando applied_at é inválida', () => {
     assert.deepEqual(
       errosDe(
@@ -90,6 +103,23 @@ describe('IsOnOrAfterDate', () => {
     assert.deepEqual(
       errosDe(medicacao({ end_date: '2026-01-09' }), 'end_date'),
       ['isOnOrAfterDate'],
+    );
+  });
+
+  it('cita a propriedade comparada na mensagem', () => {
+    assert.deepEqual(
+      mensagensDe(medicacao({ end_date: '2026-01-09' }), 'end_date'),
+      ['end_date não pode ser anterior a start_date.'],
+    );
+  });
+
+  it('não compara quando start_date é inválida', () => {
+    assert.deepEqual(
+      errosDe(
+        medicacao({ start_date: 'ontem', end_date: '2020-01-01' }),
+        'end_date',
+      ),
+      [],
     );
   });
 });
