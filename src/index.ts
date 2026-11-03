@@ -54,6 +54,7 @@ export * from './dtos/notification/device-token-response.dto';
 // Veterinario DTOs (M5 - Modulo Veterinario)
 export * from './dtos/veterinario/adicionar-pet-atendido.dto';
 export * from './dtos/veterinario/create-veterinario.dto';
+export * from './dtos/veterinario/delete-veterinario.dto';
 export * from './dtos/veterinario/pet-atendido-response.dto';
 export * from './dtos/veterinario/update-veterinario.dto';
 export * from './dtos/veterinario/veterinario-response.dto';
