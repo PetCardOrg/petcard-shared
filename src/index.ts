@@ -6,6 +6,7 @@ export * from './enums/species.enum';
 export * from './enums/sex.enum';
 export * from './enums/device-platform.enum';
 export * from './enums/acao-clinica.enum';
+export * from './enums/crmv-motivo-recusa.enum';
 
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
@@ -54,6 +55,8 @@ export * from './dtos/notification/device-token-response.dto';
 // Veterinario DTOs (M5 - Modulo Veterinario)
 export * from './dtos/veterinario/adicionar-pet-atendido.dto';
 export * from './dtos/veterinario/create-veterinario.dto';
+export * from './dtos/veterinario/crmv-status-response.dto';
+export * from './dtos/veterinario/delete-veterinario.dto';
 export * from './dtos/veterinario/pet-atendido-response.dto';
 export * from './dtos/veterinario/update-veterinario.dto';
 export * from './dtos/veterinario/veterinario-response.dto';
@@ -65,9 +68,11 @@ export * from './dtos/nota-clinica/nota-clinica-response.dto';
 
 // Historico Clinico DTOs (api#117)
 export * from './dtos/historico-clinico/acao-clinica-response.dto';
+export * from './dtos/historico-clinico/historico-clinico-query.dto';
 export * from './dtos/historico-clinico/historico-clinico-response.dto';
 
 // Validators (regras de negocio replicadas nos DTOs)
 export * from './validators/normalize-email.validator';
 export * from './validators/strong-password.validator';
 export * from './validators/clinical-date.validators';
+export * from './validators/optional.validators';
