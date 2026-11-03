@@ -45,17 +45,20 @@ export function IsNotFutureDate(
 }
 
 /**
- * Data estritamente posterior à de outra propriedade (ex.: `next_dose_at`
- * depois de `applied_at`). Se qualquer um dos dois lados não for uma data
+ * Compara a data da propriedade com a de outra (`property`) usando `ok`, que
+ * recebe os dois timestamps. Se qualquer um dos dois lados não for uma data
  * parseável, deixa passar — quem reporta isso é `IsDateString`/`IsOptional`.
  */
-export function IsAfterDate(
+function compareToRelated(
+  name: string,
   property: string,
+  ok: (target: number, related: number) => boolean,
+  message: (property: string, relatedProperty: string) => string,
   validationOptions?: ValidationOptions,
 ): PropertyDecorator {
   return (object: object, propertyName: string | symbol) => {
     registerDecorator({
-      name: 'isAfterDate',
+      name,
       target: object.constructor,
       propertyName: propertyName as string,
       constraints: [property],
@@ -69,15 +72,32 @@ export function IsAfterDate(
           const target = parseDate(value);
           const related = parseDate(relatedValue);
           if (!target || !related) return true;
-          return target.getTime() > related.getTime();
+          return ok(target.getTime(), related.getTime());
         },
         defaultMessage(args: ValidationArguments) {
           const [relatedProperty] = args.constraints as [string];
-          return `${args.property} deve ser posterior a ${relatedProperty}.`;
+          return message(args.property, relatedProperty);
         },
       },
     });
   };
+}
+
+/**
+ * Data estritamente posterior à de outra propriedade (ex.: `next_dose_at`
+ * depois de `applied_at`).
+ */
+export function IsAfterDate(
+  property: string,
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
+  return compareToRelated(
+    'isAfterDate',
+    property,
+    (target, related) => target > related,
+    (prop, related) => `${prop} deve ser posterior a ${related}.`,
+    validationOptions,
+  );
 }
 
 /**
@@ -88,31 +108,13 @@ export function IsOnOrAfterDate(
   property: string,
   validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-  return (object: object, propertyName: string | symbol) => {
-    registerDecorator({
-      name: 'isOnOrAfterDate',
-      target: object.constructor,
-      propertyName: propertyName as string,
-      constraints: [property],
-      options: validationOptions,
-      validator: {
-        validate(value: unknown, args: ValidationArguments) {
-          const [relatedProperty] = args.constraints as [string];
-          const relatedValue = (args.object as Record<string, unknown>)[
-            relatedProperty
-          ];
-          const target = parseDate(value);
-          const related = parseDate(relatedValue);
-          if (!target || !related) return true;
-          return target.getTime() >= related.getTime();
-        },
-        defaultMessage(args: ValidationArguments) {
-          const [relatedProperty] = args.constraints as [string];
-          return `${args.property} não pode ser anterior a ${relatedProperty}.`;
-        },
-      },
-    });
-  };
+  return compareToRelated(
+    'isOnOrAfterDate',
+    property,
+    (target, related) => target >= related,
+    (prop, related) => `${prop} não pode ser anterior a ${related}.`,
+    validationOptions,
+  );
 }
 
 /** Dosagem precisa conter uma quantidade ("250mg" serve, "bastante" não). */
