@@ -71,3 +71,4 @@ export * from './dtos/historico-clinico/historico-clinico-response.dto';
 export * from './validators/normalize-email.validator';
 export * from './validators/strong-password.validator';
 export * from './validators/clinical-date.validators';
+export * from './validators/optional.validators';
