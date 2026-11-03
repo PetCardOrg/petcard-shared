@@ -10,6 +10,7 @@ export * from './enums/acao-clinica.enum';
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
 export * from './dtos/tutor/update-tutor.dto';
+export * from './dtos/tutor/delete-tutor.dto';
 export * from './dtos/tutor/tutor-response.dto';
 
 // Pet DTOs
