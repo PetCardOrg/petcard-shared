@@ -9,44 +9,49 @@ import {
   HasDosageQuantity,
   IsOnOrAfterDate,
 } from '../../validators/clinical-date.validators';
+import { IsOptionalNaoNulo } from '../../validators/optional.validators';
 
+/**
+ * PATCH de medicação. Obrigatórios podem faltar, mas não vir `null`; os
+ * anuláveis aceitam `null` para limpar o campo (AUD SH-09).
+ */
 export class UpdateMedicationRecordDto {
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsUUID()
   pet_id?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsString()
   @MaxLength(120)
   medication_name?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsString()
   @MaxLength(60)
   @HasDosageQuantity()
   dosage?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsString()
   @MaxLength(60)
   frequency?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsDateString()
   start_date?: string;
 
   @IsOptional()
   @IsDateString()
   @IsOnOrAfterDate('start_date')
-  end_date?: string;
+  end_date?: string | null;
 
   @IsOptional()
   @IsString()
   @MaxLength(120)
-  veterinarian_name?: string;
+  veterinarian_name?: string | null;
 
   @IsOptional()
   @IsString()
   @MaxLength(2000)
-  notes?: string;
+  notes?: string | null;
 }

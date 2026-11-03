@@ -9,18 +9,23 @@ import {
   IsAfterDate,
   IsNotFutureDate,
 } from '../../validators/clinical-date.validators';
+import { IsOptionalNaoNulo } from '../../validators/optional.validators';
 
+/**
+ * PATCH de vacina. Obrigatórios podem faltar, mas não vir `null`; os
+ * anuláveis aceitam `null` para limpar o campo (AUD SH-09).
+ */
 export class UpdateVaccineRecordDto {
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsUUID()
   pet_id?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsString()
   @MaxLength(120)
   vaccine_name?: string;
 
-  @IsOptional()
+  @IsOptionalNaoNulo()
   @IsDateString()
   @IsNotFutureDate()
   applied_at?: string;
@@ -28,15 +33,15 @@ export class UpdateVaccineRecordDto {
   @IsOptional()
   @IsDateString()
   @IsAfterDate('applied_at')
-  next_dose_at?: string;
+  next_dose_at?: string | null;
 
   @IsOptional()
   @IsString()
   @MaxLength(120)
-  veterinarian_name?: string;
+  veterinarian_name?: string | null;
 
   @IsOptional()
   @IsString()
   @MaxLength(2000)
-  notes?: string;
+  notes?: string | null;
 }
