@@ -42,4 +42,9 @@ export class HistoricoClinicoResponseDto {
   pet_id!: string;
   pet_nome!: string;
   itens!: HistoricoClinicoItemResponseDto[];
+  /**
+   * Cursor da próxima página, quando a chamada pediu `limit` e há mais itens
+   * (AUD API-22). Ausente na última página e sem paginação.
+   */
+  proximo_cursor?: string;
 }

@@ -68,6 +68,7 @@ export * from './dtos/nota-clinica/nota-clinica-response.dto';
 
 // Historico Clinico DTOs (api#117)
 export * from './dtos/historico-clinico/acao-clinica-response.dto';
+export * from './dtos/historico-clinico/historico-clinico-query.dto';
 export * from './dtos/historico-clinico/historico-clinico-response.dto';
 
 // Validators (regras de negocio replicadas nos DTOs)
