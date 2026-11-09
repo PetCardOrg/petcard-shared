@@ -1,34 +1,47 @@
-# 🐾 PetCard Shared
+<div align="center">
 
-[![Publish](https://github.com/PetCardOrg/petcard-shared/actions/workflows/publish.yaml/badge.svg)](https://github.com/PetCardOrg/petcard-shared/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<img src=".github/assets/logo.png" alt="Logo do PetCard" width="80" />
 
-Pacote npm compartilhado do ecossistema PetCard. Contém DTOs, enums, types e validators utilizados pelo backend, web e mobile.
+# PetCard Shared
 
-**Projeto de TCC** — Ciência da Computação (2026)
+**Pacote `@petcardorg/shared`: os contratos (DTOs, enums e validadores) que a API, a web e o app usam para falar a mesma língua.**
 
-## Ecossistema PetCard
+[![CI](https://github.com/PetCardOrg/petcard-shared/actions/workflows/ci.yml/badge.svg)](https://github.com/PetCardOrg/petcard-shared/actions/workflows/ci.yml)
+[![Publish](https://github.com/PetCardOrg/petcard-shared/actions/workflows/publish.yaml/badge.svg)](https://github.com/PetCardOrg/petcard-shared/actions/workflows/publish.yaml)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-0.25.0-1DA1D6?logo=npm&logoColor=white)](https://github.com/orgs/PetCardOrg/packages/npm/package/shared)
+[![License: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-yellow.svg)](LICENSE)
 
-Este repositório faz parte de um conjunto de 5 repos:
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![class-validator](https://img.shields.io/badge/class--validator-DTOs-E0234E)](https://github.com/typestack/class-validator)
+[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-npm-24292f?logo=github)](https://github.com/orgs/PetCardOrg/packages/npm/package/shared)
 
-| Repositório                                                    | Descrição                          |
-| -------------------------------------------------------------- | ---------------------------------- |
-| [petcard-api](https://github.com/PetCardOrg/petcard-api)       | Backend NestJS                     |
-| [petcard-web](https://github.com/PetCardOrg/petcard-web)       | Painel do Veterinário (React.js)   |
-| [petcard-mobile](https://github.com/PetCardOrg/petcard-mobile) | App do Tutor (React Native / Expo) |
-| **petcard-shared**                                             | ← Você está aqui                   |
-| [petcard-docs](https://github.com/PetCardOrg/petcard-docs)     | Documentação e gestão do projeto   |
+[Por que existe](#por-que-existe) · [Instalação](#instalação) · [Uso](#uso) · [Conteúdo](#conteúdo) · [Desenvolvimento](#desenvolvimento) · [Publicação](#publicação) · [Ecossistema](#ecossistema)
 
-## Instalação (nos repos consumidores)
+</div>
 
-Requer configuração do `.npmrc` para apontar ao GitHub Packages:
+---
 
+## Por que existe
+
+Quando o app envia um pet novo para a API, os dois lados precisam concordar sobre quais campos existem e quais são obrigatórios. Este pacote é a **fonte única** desses contratos: a API usa os DTOs para validar as requisições e gerar o Swagger, e a web e o mobile usam os mesmos tipos para montar as chamadas. Se um contrato muda aqui, o TypeScript aponta onde cada consumidor precisa se ajustar.
+
+```mermaid
+flowchart LR
+    S[["📦 @petcardorg/shared"]] --> A["⚙️ petcard-api<br/>validação + Swagger"]
+    S --> W["💻 petcard-web<br/>tipos"]
+    S --> M["📱 petcard-mobile<br/>tipos"]
 ```
+
+## Instalação
+
+O pacote é publicado no GitHub Packages. No repositório consumidor, crie um `.npmrc`:
+
+```ini
 @petcardorg:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
 
-Depois:
+Depois, com um token do GitHub de escopo `read:packages` em `NODE_AUTH_TOKEN`:
 
 ```bash
 npm install @petcardorg/shared
@@ -43,62 +56,68 @@ const pet: CreatePetDto = {
   name: 'Luna',
   species: Species.DOG,
   sex: Sex.FEMALE,
+  breed: 'SRD (Vira-lata)',
+  weight: 14.85,
 };
 ```
+
+Na API, os mesmos DTOs passam pelo `ValidationPipe` do NestJS, que aplica as regras do `class-validator` declaradas aqui.
+
+## Conteúdo
+
+```
+src/
+├── dtos/          um diretório por domínio
+├── enums/         valores compartilhados
+├── validators/    validadores customizados do class-validator
+└── index.ts       exporta tudo
+```
+
+| Pasta | O que tem |
+|---|---|
+| `dtos/` | `tutor`, `veterinario`, `pet`, `vaccine`, `deworming`, `medication`, `nota-clinica`, `anexo`, `historico-clinico`, `carteira-digital`, `clinica`, `notification` |
+| `enums/` | `Role`, `Species`, `Sex`, `DevicePlatform`, `AcaoClinica`, `CrmvMotivoRecusa` |
+| `validators/` | Senha forte, normalização de e-mail, datas clínicas e campos opcionais que aceitam `null` |
+
+O build (`scripts/build.js`) usa o plugin do `@nestjs/swagger` como transformer: ele grava nos DTOs a metadata do OpenAPI, o que permite à API gerar o Swagger completo a partir de um pacote externo. A saída é JavaScript puro, sem dependência nova para a web e o mobile.
 
 ## Desenvolvimento
 
 ```bash
-# Clone o repositório
 git clone https://github.com/PetCardOrg/petcard-shared.git
 cd petcard-shared
-
-# Instale as dependências
 npm install
 
-# Build
-npm run build
-# Gera a pasta dist/ com os arquivos compilados
+npm run build        # gera dist/
+npm test             # testes dos validadores (node:test)
+npm run lint:check   # ESLint sem correção, como no CI
 ```
 
-## Testes e cobertura
-
-Este pacote **não possui suíte de testes própria** — decisão consciente da milestone de QA (M6, PC-091). Ele contém apenas DTOs, enums, types e os decorators de validação (`class-validator`), sem lógica de runtime a exercitar:
-
-- A **corretude de tipos** é garantida pelo `tsc` (build) a cada CI e publicação.
-- A **validação em runtime** (os decorators dos DTOs) é exercitada de ponta a ponta pelas suítes dos consumidores — os testes de integração/E2E da `petcard-api` validam os mesmos DTOs através do `ValidationPipe`.
-
-Por isso não há relatório de cobertura nem badge aqui; a cobertura de QA do ecossistema vive em `petcard-api`, `petcard-web` e `petcard-mobile`.
+Os testes ficam em `test/`, fora do pacote publicado, e cobrem os validadores e as regras de DTO que têm lógica, como senha forte, paginação do histórico e campos que aceitam `null` no `PATCH`.
 
 ## Publicação
 
-A publicação é automática via GitHub Actions. Todo push na branch `main` dispara o workflow que faz build e publica no GitHub Packages.
+| Quando | O que acontece |
+|---|---|
+| PR para `develop` ou `main` | O CI roda lint, build e testes, e **reprova** se `src/` mudou sem aumentar a versão |
+| Push na `main` | O workflow publica a versão do `package.json` no GitHub Packages |
 
-Para publicar uma nova versão manualmente:
+O publish pula versões que já existem, então toda mudança de contrato precisa de bump. Diferente dos outros repositórios, aqui a `main` acompanha a `develop`, porque a API só consegue instalar versões que já foram publicadas.
 
-1. Atualize a versão no `package.json` (seguir semver)
-2. Faça push para `main`
-3. O workflow publica automaticamente
+| Mudança | Versão |
+|---|---|
+| Correção de tipo ou campo opcional novo | patch (`0.25.0` → `0.25.1`) |
+| DTO ou enum novo | minor (`0.25.0` → `0.26.0`) |
+| Remover ou renomear campo | major (reservado para a `1.0.0`) |
 
-### Versionamento
+## Ecossistema
 
-| Tipo          | Quando usar                                | Exemplo       |
-| ------------- | ------------------------------------------ | ------------- |
-| patch (0.1.X) | Correções de tipos, novos campos opcionais | 0.1.0 → 0.1.1 |
-| minor (0.X.0) | Novos DTOs, novos enums                    | 0.1.0 → 0.2.0 |
-| major (X.0.0) | Breaking changes (renomear/remover campos) | 0.2.0 → 1.0.0 |
+| Repositório | O que é |
+|---|---|
+| [petcard-api](https://github.com/PetCardOrg/petcard-api) | API REST em NestJS |
+| [petcard-web](https://github.com/PetCardOrg/petcard-web) | Área do veterinário em React + Vite |
+| [petcard-mobile](https://github.com/PetCardOrg/petcard-mobile) | App do tutor em React Native + Expo |
+| **petcard-shared** | Contratos compartilhados (você está aqui) |
+| [petcard-docs](https://github.com/PetCardOrg/petcard-docs) | Documentação central, ADRs e board |
 
-## Estrutura
-
-```
-src/
-├── dtos/          → Interfaces de transferência de dados
-├── enums/         → Enumerações compartilhadas
-├── types/         → Tipos utilitários
-├── validators/    → Funções de validação
-└── index.ts       → Barrel export
-```
-
-## Contribuição
-
-Leia o [CONTRIBUTING.md](https://github.com/PetCardOrg/petcard-docs/blob/main/CONTRIBUTING.md) no repositório petcard-docs.
+Para contribuir, siga o [guia de contribuição](https://github.com/PetCardOrg/petcard-docs/blob/main/CONTRIBUTING.md). Projeto de TCC em Ciência da Computação, UNIFOR, 2026, por Álvaro Araújo, Camila Martins e Ricardo Temporal. Licença [MIT](LICENSE).
