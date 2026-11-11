@@ -77,3 +77,15 @@ export function IsStrongPassword(): PropertyDecorator {
     }),
   );
 }
+
+/** Mesma regra do `IsStrongPassword`, para validar fora de um DTO. */
+export function isStrongPassword(password: unknown): password is string {
+  return (
+    typeof password === 'string' &&
+    password.length >= PASSWORD_MIN_LENGTH &&
+    utf8ByteLength(password) <= PASSWORD_MAX_LENGTH &&
+    /[A-Z]/.test(password) &&
+    /[0-9]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
+  );
+}
