@@ -2,7 +2,11 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
-import { CreateVeterinarioDto, UpdateVeterinarioDto } from '../src';
+import {
+  CreateVeterinarioDto,
+  isStrongPassword,
+  UpdateVeterinarioDto,
+} from '../src';
 
 /** Regras que reprovaram a senha (vazio = senha aceita). */
 function errosDaSenha(password: string): string[] {
@@ -98,5 +102,24 @@ describe('UpdateVeterinarioDto.senha_atual', () => {
       senha_atual: 'SenhaAntiga1!',
     });
     assert.deepEqual(validateSync(dto), []);
+  });
+});
+
+describe('isStrongPassword', () => {
+  it('aceita a mesma senha que o decorator aceita', () => {
+    assert.equal(isStrongPassword('Senha123!'), true);
+    assert.equal(isStrongPassword('A1!' + 'á'.repeat(34) + 'a'), true);
+  });
+
+  it('reprova o que o decorator reprova', () => {
+    assert.equal(isStrongPassword('senha123!'), false);
+    assert.equal(isStrongPassword('Se1!'), false);
+    assert.equal(isStrongPassword('A1!' + 'á'.repeat(40)), false);
+    assert.equal(isStrongPassword('A1!' + '🐶'.repeat(18)), false);
+  });
+
+  it('reprova o que não é texto', () => {
+    assert.equal(isStrongPassword(undefined), false);
+    assert.equal(isStrongPassword(12345678), false);
   });
 });
