@@ -8,7 +8,7 @@
 
 [![CI](https://github.com/PetCardOrg/petcard-shared/actions/workflows/ci.yml/badge.svg)](https://github.com/PetCardOrg/petcard-shared/actions/workflows/ci.yml)
 [![Publish](https://github.com/PetCardOrg/petcard-shared/actions/workflows/publish.yaml/badge.svg)](https://github.com/PetCardOrg/petcard-shared/actions/workflows/publish.yaml)
-[![Versão](https://img.shields.io/badge/vers%C3%A3o-0.25.0-1DA1D6?logo=npm&logoColor=white)](https://github.com/orgs/PetCardOrg/packages/npm/package/shared)
+[![Versão](https://img.shields.io/badge/vers%C3%A3o-0.26.0-1DA1D6?logo=npm&logoColor=white)](https://github.com/orgs/PetCardOrg/packages/npm/package/shared)
 [![License: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-yellow.svg)](LICENSE)
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -73,11 +73,11 @@ src/
 └── index.ts       exporta tudo
 ```
 
-| Pasta | O que tem |
-|---|---|
-| `dtos/` | `tutor`, `veterinario`, `pet`, `vaccine`, `deworming`, `medication`, `nota-clinica`, `anexo`, `historico-clinico`, `carteira-digital`, `clinica`, `notification` |
-| `enums/` | `Role`, `Species`, `Sex`, `DevicePlatform`, `AcaoClinica`, `CrmvMotivoRecusa` |
-| `validators/` | Senha forte, normalização de e-mail, datas clínicas e campos opcionais que aceitam `null` |
+| Pasta         | O que tem                                                                                                                                                        |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dtos/`       | `tutor`, `veterinario`, `pet`, `vaccine`, `deworming`, `medication`, `nota-clinica`, `anexo`, `historico-clinico`, `carteira-digital`, `clinica`, `notification` |
+| `enums/`      | `Role`, `Species`, `Sex`, `DevicePlatform`, `AcaoClinica`, `CrmvMotivoRecusa`                                                                                    |
+| `validators/` | Senha forte, normalização de e-mail, datas clínicas e campos opcionais que aceitam `null`                                                                        |
 
 O build (`scripts/build.js`) usa o plugin do `@nestjs/swagger` como transformer: ele grava nos DTOs a metadata do OpenAPI, o que permite à API gerar o Swagger completo a partir de um pacote externo. A saída é JavaScript puro, sem dependência nova para a web e o mobile.
 
@@ -97,27 +97,27 @@ Os testes ficam em `test/`, fora do pacote publicado, e cobrem os validadores e 
 
 ## Publicação
 
-| Quando | O que acontece |
-|---|---|
+| Quando                      | O que acontece                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------- |
 | PR para `develop` ou `main` | O CI roda lint, build e testes, e **reprova** se `src/` mudou sem aumentar a versão |
-| Push na `main` | O workflow publica a versão do `package.json` no GitHub Packages |
+| Push na `main`              | O workflow publica a versão do `package.json` no GitHub Packages                    |
 
 O publish pula versões que já existem, então toda mudança de contrato precisa de bump. Diferente dos outros repositórios, aqui a `main` acompanha a `develop`, porque a API só consegue instalar versões que já foram publicadas.
 
-| Mudança | Versão |
-|---|---|
-| Correção de tipo ou campo opcional novo | patch (`0.25.0` → `0.25.1`) |
-| DTO ou enum novo | minor (`0.25.0` → `0.26.0`) |
-| Remover ou renomear campo | major (reservado para a `1.0.0`) |
+| Mudança                                 | Versão                           |
+| --------------------------------------- | -------------------------------- |
+| Correção de tipo ou campo opcional novo | patch (`0.25.0` → `0.25.1`)      |
+| DTO ou enum novo                        | minor (`0.25.0` → `0.26.0`)      |
+| Remover ou renomear campo               | major (reservado para a `1.0.0`) |
 
 ## Ecossistema
 
-| Repositório | O que é |
-|---|---|
-| [petcard-api](https://github.com/PetCardOrg/petcard-api) | API REST em NestJS |
-| [petcard-web](https://github.com/PetCardOrg/petcard-web) | Área do veterinário em React + Vite |
-| [petcard-mobile](https://github.com/PetCardOrg/petcard-mobile) | App do tutor em React Native + Expo |
-| **petcard-shared** | Contratos compartilhados (você está aqui) |
-| [petcard-docs](https://github.com/PetCardOrg/petcard-docs) | Documentação central, ADRs e board |
+| Repositório                                                    | O que é                                   |
+| -------------------------------------------------------------- | ----------------------------------------- |
+| [petcard-api](https://github.com/PetCardOrg/petcard-api)       | API REST em NestJS                        |
+| [petcard-web](https://github.com/PetCardOrg/petcard-web)       | Área do veterinário em React + Vite       |
+| [petcard-mobile](https://github.com/PetCardOrg/petcard-mobile) | App do tutor em React Native + Expo       |
+| **petcard-shared**                                             | Contratos compartilhados (você está aqui) |
+| [petcard-docs](https://github.com/PetCardOrg/petcard-docs)     | Documentação central, ADRs e board        |
 
 Para contribuir, siga o [guia de contribuição](https://github.com/PetCardOrg/petcard-docs/blob/main/CONTRIBUTING.md). Projeto de TCC em Ciência da Computação, UNIFOR, 2026, por Álvaro Araújo, Camila Martins e Ricardo Temporal. Licença [MIT](LICENSE).
