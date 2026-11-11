@@ -8,6 +8,16 @@ export * from './enums/device-platform.enum';
 export * from './enums/acao-clinica.enum';
 export * from './enums/crmv-motivo-recusa.enum';
 
+// Auth DTOs
+export * from './dtos/auth/login.dto';
+export * from './dtos/auth/register.dto';
+export * from './dtos/auth/google-login.dto';
+export * from './dtos/auth/forgot-password.dto';
+export * from './dtos/auth/reset-password.dto';
+export * from './dtos/auth/verify-email.dto';
+export * from './dtos/auth/tutor-session-response.dto';
+export * from './dtos/auth/veterinario-session-response.dto';
+
 // Tutor DTOs
 export * from './dtos/tutor/create-tutor.dto';
 export * from './dtos/tutor/update-tutor.dto';
@@ -47,6 +57,26 @@ export * from './dtos/carteira-digital/carteira-digital-clinica-response.dto';
 export * from './dtos/clinica/places-clinic-response.dto';
 export * from './dtos/clinica/find-nearby-places.query.dto';
 export * from './dtos/clinica/geocode-response.dto';
+export * from './dtos/clinica/geocode-query.dto';
+export * from './dtos/clinica/autocomplete-query.dto';
+export * from './dtos/clinica/place-suggestion-response.dto';
+
+// Coleira DTOs
+export * from './dtos/coleira/coleira-public-response.dto';
+export * from './dtos/coleira/registrar-leitura.dto';
+export * from './dtos/coleira/pet-scan-response.dto';
+export * from './dtos/coleira/tag-coleira-response.dto';
+
+// Appointment DTOs
+export * from './dtos/appointment/create-appointment.dto';
+export * from './dtos/appointment/update-appointment.dto';
+export * from './dtos/appointment/appointment-response.dto';
+
+// Calendar DTOs
+export * from './dtos/calendar/calendar-response.dto';
+
+// Upload DTOs
+export * from './dtos/upload/upload-image-response.dto';
 
 // Notification DTOs (M4 - FCM device registration)
 export * from './dtos/notification/register-device.dto';
@@ -56,6 +86,9 @@ export * from './dtos/notification/device-token-response.dto';
 export * from './dtos/veterinario/adicionar-pet-atendido.dto';
 export * from './dtos/veterinario/create-veterinario.dto';
 export * from './dtos/veterinario/crmv-status-response.dto';
+export * from './dtos/veterinario/crmv-consulta-response.dto';
+export * from './dtos/veterinario/dashboard-query.dto';
+export * from './dtos/veterinario/dashboard-pet-response.dto';
 export * from './dtos/veterinario/delete-veterinario.dto';
 export * from './dtos/veterinario/pet-atendido-response.dto';
 export * from './dtos/veterinario/update-veterinario.dto';

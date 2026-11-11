@@ -4,9 +4,9 @@
 
 ## O que é
 
-Pacote `@petcardorg/shared` (**`0.25.0`**, GitHub Packages) com os **DTOs e enums** compartilhados entre `petcard-api`, `petcard-web` e `petcard-mobile`. Fonte-única dos contratos de request/response. Sem runtime próprio — é só tipos + metadata.
+Pacote `@petcardorg/shared` (**`0.26.0`**, GitHub Packages) com os **DTOs e enums** compartilhados entre `petcard-api`, `petcard-web` e `petcard-mobile`. Fonte-única dos contratos de request/response. Sem runtime próprio — é só tipos + metadata.
 
-- **Estrutura:** `src/dtos/<dominio>/` (carteira-digital, clinica, deworming, medication, nota-clinica, notification, pet, tutor, vaccine, veterinario), `src/enums/` (role, sex, species, device-platform, acao-clinica, crmv-motivo-recusa), `src/index.ts` (barrel).
+- **Estrutura:** `src/dtos/<dominio>/` (anexo, appointment, auth, calendar, carteira-digital, clinica, coleira, deworming, historico-clinico, medication, nota-clinica, notification, pet, tutor, upload, vaccine, veterinario), `src/enums/` (role, sex, species, device-platform, acao-clinica, crmv-motivo-recusa), `src/index.ts` (barrel).
 
 ## Build (o ponto não-óbvio)
 
